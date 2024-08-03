@@ -5,11 +5,15 @@ type MyFixtures ={
     loginPage: loginPage;
 }
 
-const fixture = baseTest.extend<MyFixtures>({
-
+export const test = baseTest.extend<MyFixtures>({
+    loginPage : async ({page},use)=>{
+        await use(new loginPage(page));
     }
 
+    }
 )
+
+export {expect} from "@playwright/test";
 
 
 

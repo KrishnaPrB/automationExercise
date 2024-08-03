@@ -3,7 +3,7 @@ import {Locator, Page} from "@playwright/test";
 
 export default class loginPage{
     private page:Page;
-    private loginForm: Locator;
+    public loginForm: Locator;
 
 
     constructor(page:Page){
@@ -21,6 +21,10 @@ export default class loginPage{
 
     loginPassword = async(password:string)=>{
         await this.loginForm.getByPlaceholder("Password").fill(password);
+    }
+
+    loginBtn = async()=>{
+        await this.loginForm.getByRole("button",{name:"Login"}).click();
     }
 
 

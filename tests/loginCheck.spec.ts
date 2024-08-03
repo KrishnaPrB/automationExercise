@@ -1,11 +1,11 @@
-import {expect, Page, test} from "@playwright/test";
 
+import {test,expect} from "../fixtures/basePage";
 
 test.describe("Login/Logout check", async ()=>{
-    test("TC03-Login User with incorrect email and password",async({page})=>{
+    test("TC03-Login User with incorrect email and password",async({loginPage,page})=>{
 
         //Launch browser
-        await page.goto('http://automationexercise.com');
+        await loginPage.openWebSite();
 
         //Verify that home page is visible successfully
         await expect (page.getByRole("link",{name:"Home"})).toBeVisible();
@@ -17,13 +17,13 @@ test.describe("Login/Logout check", async ()=>{
         await expect  (page.getByRole("heading",{name:"Login to your account"})).toBeVisible();
 
         //Enter incorrect email address and password
-        const loginForm = page.locator(".login-form");
-        await loginForm.getByPlaceholder("Email Address").fill("dummy2@dummy.com");
-        await loginForm.getByPlaceholder("Password").fill("dummy2");
+
+        await loginPage.loginEmail("dummy2@dummy.com");
+        await loginPage.loginPassword("dummy2");
 
         //click on login button
-        await loginForm.getByRole("button",{name:"Login"}).click();
-        await expect (loginForm.getByText("Your email or password is incorrect!")).toBeVisible();
+        await loginPage.loginBtn();
+        await expect (loginPage.loginForm.getByText("Your email or password is incorrect!")).toBeVisible();
         //
     });
 });
