@@ -1,29 +1,39 @@
+import { test, expect } from "../fixtures/login.fixture";
 
-import {test,expect} from "../fixtures/basePage";
+test.describe("Login/Logout check", async () => {
+  test.beforeEach(
+    "open and check login page",
+    async ({ loginPage, page, homePage }) => {}
+  );
+  test("TC03-Login User with incorrect email and password", async ({
+    loginPage,
+    page,
+    homePage,
+  }) => {
+    //Launch browser
+    await homePage.openWebSite();
 
-test.describe("Login/Logout check", async ()=>{
-    test("TC03-Login User with incorrect email and password",async({loginPage,page})=>{
+    //Verify that home page is visible successfully
+    await expect(page.getByRole("link", { name: "Home" })).toBeVisible();
 
-        //Launch browser
-        await loginPage.openWebSite();
+    //Click on 'Signup / Login' button
+    await homePage.openLoginpage();
 
-        //Verify that home page is visible successfully
-        await expect (page.getByRole("link",{name:"Home"})).toBeVisible();
+    //check if "Login to your account" is visible
+    await expect(
+      page.getByRole("heading", { name: "Login to your account" })
+    ).toBeVisible();
 
-        //Click on 'Signup / Login' button
-        await page.getByRole("link",{name:"Signup / Login"}).click();
+    //Enter incorrect email address and password
 
-        //check if "Login to your account" is visible
-        await expect  (page.getByRole("heading",{name:"Login to your account"})).toBeVisible();
+    await loginPage.loginEmail("dummy2@dummy.com");
+    await loginPage.loginPassword("dummy2");
 
-        //Enter incorrect email address and password
-
-        await loginPage.loginEmail("dummy2@dummy.com");
-        await loginPage.loginPassword("dummy2");
-
-        //click on login button
-        await loginPage.loginBtn();
-        await expect (loginPage.loginForm.getByText("Your email or password is incorrect!")).toBeVisible();
-        //
-    });
+    //click on login button
+    await loginPage.loginBtn();
+    await expect(
+      loginPage.loginForm.getByText("Your email or password is incorrect!")
+    ).toBeVisible();
+    //
+  });
 });

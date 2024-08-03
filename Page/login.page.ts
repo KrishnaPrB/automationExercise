@@ -1,31 +1,27 @@
-import {Locator, Page} from "@playwright/test";
+import { Locator, Page } from "@playwright/test";
 
+export default class loginPage {
+  private page: Page;
+  public loginForm: Locator;
 
-export default class loginPage{
-    private page:Page;
-    public loginForm: Locator;
+  constructor(page: Page) {
+    this.page = page;
+    this.loginForm = this.page.locator(".login-form");
+  }
 
+  openWebSite = async () => {
+    await this.page.goto("http://automationexercise.com");
+  };
 
-    constructor(page:Page){
-        this.page=page;
-        this.loginForm = this.page.locator(".login-form")
-    }
+  loginEmail = async (email: string) => {
+    await this.loginForm.getByPlaceholder("Email Address").fill(email);
+  };
 
-    openWebSite = async () =>{
-        await this.page.goto('http://automationexercise.com')
-    }
+  loginPassword = async (password: string) => {
+    await this.loginForm.getByPlaceholder("Password").fill(password);
+  };
 
-    loginEmail = async(email:string)=>{
-        await this.loginForm.getByPlaceholder("Email Address").fill(email);
-    }
-
-    loginPassword = async(password:string)=>{
-        await this.loginForm.getByPlaceholder("Password").fill(password);
-    }
-
-    loginBtn = async()=>{
-        await this.loginForm.getByRole("button",{name:"Login"}).click();
-    }
-
-
+  loginBtn = async () => {
+    await this.loginForm.getByRole("button", { name: "Login" }).click();
+  };
 }
