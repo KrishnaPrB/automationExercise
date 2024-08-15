@@ -14,4 +14,8 @@ export default class homePage {
   openLoginpage = async () => {
     await this.page.getByRole("link", { name: " Signup / Login" }).click();
   };
+
+  logOutLink = async () => {
+    await this.page.getByRole("link", { name: "Logout" }).click();
+  };
 }

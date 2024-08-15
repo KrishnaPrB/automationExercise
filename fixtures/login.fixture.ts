@@ -7,6 +7,7 @@ type MyFixtures = {
   homePage: homePage;
   userEmail: string;
   userPassword: string;
+  userName: string;
 };
 
 export const test = baseTest.extend<MyFixtures>({
@@ -20,6 +21,7 @@ export const test = baseTest.extend<MyFixtures>({
 
   userEmail: "dummy1@dummy.com",
   userPassword: "dummy",
+  userName: "dummy",
 });
 
 export { expect } from "@playwright/test";
